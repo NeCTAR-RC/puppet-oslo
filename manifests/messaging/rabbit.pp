@@ -11,25 +11,6 @@
 #   (optional) Define queues as "durable" to rabbitmq. (boolean value)
 #   Defaults to $::os_service_default
 #
-# [*kombu_ssl_version*]
-#   (Optional) SSL version to use (valid only if SSL enabled). '
-#   Valid values are TLSv1 and SSLv23. SSLv2, SSLv3, TLSv1_1,
-#   and TLSv1_2 may be available on some distributions. (string value)
-#   Defaults to $::os_service_default
-#
-# [*kombu_ssl_keyfile*]
-#   (Optional) SSL key file (valid only if SSL enabled). (string value)
-#   Defaults to $::os_service_default
-#
-# [*kombu_ssl_certfile*]
-#   (Optional) SSL cert file (valid only if SSL enabled). (string value)
-#   Defaults to $::os_service_default
-#
-# [*kombu_ssl_ca_certs*]
-#   (Optional) SSL certification authority file (valid only if SSL enabled).
-#   (string value)
-#   Defaults to $::os_service_default
-#
 # [*kombu_reconnect_delay*]
 #   (Optional) How long to wait before reconnecting in response
 #   to an AMQP consumer cancel notification. (floating point value)
@@ -69,10 +50,6 @@
 #
 # [*rabbit_hosts*]
 #   (Optional) RabbitMQ HA cluster host:port pairs. (array value)
-#   Defaults to $::os_service_default
-#
-# [*rabbit_use_ssl*]
-#   (Optional) Connect over SSL for RabbitMQ. (boolean value)
 #   Defaults to $::os_service_default
 #
 # [*rabbit_userid*]
@@ -135,6 +112,30 @@
 #   (Optional) Maximum number of RabbitMQ connection retries. (integer value)
 #   Defaults to undef
 #
+# [*rabbit_use_ssl*]
+#   (Optional) Connect over SSL for RabbitMQ. (boolean value)
+#   Defaults to $::os_service_default
+#
+# [*kombu_ssl_version*]
+#   (Optional) SSL version to use (valid only if SSL enabled). '
+#   Valid values are TLSv1 and SSLv23. SSLv2, SSLv3, TLSv1_1,
+#   and TLSv1_2 may be available on some distributions. (string value)
+#   Defaults to $::os_service_default
+#
+# [*kombu_ssl_keyfile*]
+#   (Optional) SSL key file (valid only if SSL enabled). (string value)
+#   Defaults to $::os_service_default
+#
+# [*kombu_ssl_certfile*]
+#   (Optional) SSL cert file (valid only if SSL enabled). (string value)
+#   Defaults to $::os_service_default
+#
+# [*kombu_ssl_ca_certs*]
+#   (Optional) SSL certification authority file (valid only if SSL enabled).
+#   (string value)
+#   Defaults to $::os_service_default
+#
+
 define oslo::messaging::rabbit(
   $amqp_durable_queues                  = $::os_service_default,
   $kombu_ssl_version                    = $::os_service_default,
@@ -225,6 +226,7 @@ rabbit_password, rabbit_virtual_host parameters have been deprecated by the \
                       'oslo_messaging_rabbit/rabbit_retry_backoff' => { value => $rabbit_retry_backoff },
                       'oslo_messaging_rabbit/rabbit_retry_interval' => { value => $rabbit_retry_interval },
                       'oslo_messaging_rabbit/rabbit_transient_queues_ttl' => { value => $rabbit_transient_queues_ttl },
+                      'oslo_messaging_rabbit/rabbit_use_ssl' => { value => $rabbit_use_ssl },
                       'oslo_messaging_rabbit/ssl' => { value => $rabbit_use_ssl },
                       'oslo_messaging_rabbit/rabbit_userid' => { value => $rabbit_userid },
                       'oslo_messaging_rabbit/rabbit_virtual_host' => { value => $rabbit_virtual_host },
@@ -233,6 +235,10 @@ rabbit_password, rabbit_virtual_host parameters have been deprecated by the \
                       'oslo_messaging_rabbit/rabbit_qos_prefetch_count' => { value => $rabbit_qos_prefetch_count },
                       'oslo_messaging_rabbit/rabbit_host' => { value => $rabbit_host_orig },
                       'oslo_messaging_rabbit/rabbit_ha_queues' => { value => $rabbit_ha_queues_orig },
+                      'oslo_messaging_rabbit/kombu_ssl_ca_certs' => { value => $kombu_ssl_ca_certs },
+                      'oslo_messaging_rabbit/kombu_ssl_certfile' => { value => $kombu_ssl_certfile },
+                      'oslo_messaging_rabbit/kombu_ssl_keyfile' => { value => $kombu_ssl_keyfile },
+                      'oslo_messaging_rabbit/kombu_ssl_version' => { value => $kombu_ssl_version },
                       'oslo_messaging_rabbit/ssl_ca_file' => { value => $kombu_ssl_ca_certs },
                       'oslo_messaging_rabbit/ssl_cert_file' => { value => $kombu_ssl_certfile },
                       'oslo_messaging_rabbit/ssl_key_file' => { value => $kombu_ssl_keyfile },
