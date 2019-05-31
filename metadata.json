@@ -10,7 +10,7 @@
             "version_requirement": ">=4.13.0 <5.0.0"
         },
         {
-            "name": "openstack/openstacklib",
+            "name": "openstacklib",
             "version_requirement": ">=13.3.0 <14.0.0"
         }
     ],
